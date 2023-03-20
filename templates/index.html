@@ -28,7 +28,7 @@
       let petalLength = parseFloat(document.querySelector('#petal-length').value);
       let petalWidth = parseFloat(document.querySelector('#petal-width').value);
       let inputData = [sepalLength, sepalWidth, petalLength, petalWidth];
-      fetch('http://127.0.0.1:5000/predict', {
+      fetch('http://localhost:5000/predict', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
