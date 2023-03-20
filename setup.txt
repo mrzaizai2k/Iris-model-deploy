@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+scikit-learn
+pydantic
+pickle
+flask
+requests
+flask_cors

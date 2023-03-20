@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Iris Classification</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <h1>Iris Classification</h1>
+  <form id="iris-form">
+    <label for="sepal-length">Sepal Length:</label>
+    <input type="number" id="sepal-length" name="sepal_length" step="0.1" required><br><br>
+    <label for="sepal-width">Sepal Width:</label>
+    <input type="number" id="sepal-width" name="sepal_width" step="0.1" required><br><br>
+    <label for="petal-length">Petal Length:</label>
+    <input type="number" id="petal-length" name="petal_length" step="0.1" required><br><br>
+    <label for="petal-width">Petal Width:</label>
+    <input type="number" id="petal-width" name="petal_width" step="0.1" required><br><br>
+    <button type="submit" id="predict-button">Predict</button>
+  </form>
+  <p id="prediction"></p>
+  <script>
+    // Handle form submission
+    document.querySelector('#iris-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      let sepalLength = parseFloat(document.querySelector('#sepal-length').value);
+      let sepalWidth = parseFloat(document.querySelector('#sepal-width').value);
+      let petalLength = parseFloat(document.querySelector('#petal-length').value);
+      let petalWidth = parseFloat(document.querySelector('#petal-width').value);
+      let inputData = [sepalLength, sepalWidth, petalLength, petalWidth];
+      fetch('http://127.0.0.1:5000/predict', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({'data': inputData})
+      })
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(result) {
+        document.querySelector('#prediction').textContent = 'Prediction: ' + result.prediction;
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+    });
+  </script>
+</body>
+</html>
